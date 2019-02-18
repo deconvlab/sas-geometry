@@ -10,14 +10,14 @@ This repository contains experiments on the *short-and-sparse blind deconvolutio
 
 For a number of formulations, show that:
 
-- `Todo:` Negative curvature exists at balanced points of shift space, pointing toward the shifts of a_0.
-- `Todo:` Directions orthogonal to shifts of a_0 in shift-space exhibit positive curvature.
+- `Todo:` Negative curvature exists at balanced points of shift space, pointing toward the shifts of **a_0**.
+- `Todo:` Directions orthogonal to shifts of **a_0** in shift-space exhibit positive curvature.
 - `Todo:` Negative curvature decreases when shift-coherence increases.
 
 
 
 ## Utils
 
-- `Todo:` Tool to find saddle-point between shifts of a_0.
+- `Todo:` Tool to find saddle-point between shifts of **a_0**.
 - `Todo:` Tool to determine negative / positive curvature.
 - `Todo:` Solvers for different formulations.
