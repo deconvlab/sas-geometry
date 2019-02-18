@@ -6,7 +6,9 @@ Here the tools for each formulation is written into a MATLAB class. Each formula
 - Probe function values *f*(**a**) for different **a**.
 - Find the nearest critical point for given **a**.
 - Get information about positive and negative curvature.
-- Take (accelerated) gradient descent steps or something similar.
+- Take descent steps using methods similar to
+  - (accelerated) gradient descent
+  - curvilinear search (to have more control over direction in saddle points)
 
 
 
