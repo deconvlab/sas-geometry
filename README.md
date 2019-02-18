@@ -20,4 +20,5 @@ For a number of formulations, show that:
 
 - `Todo:` Tool to find saddle-point between shifts of **a_0**.
 - `Todo:` Tool to determine negative / positive curvature.
+- `Todo:` Projector onto shift space / tube.
 - `Todo:` Solvers for different formulations.
