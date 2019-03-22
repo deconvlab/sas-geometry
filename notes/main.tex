@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[letterpaper]{geometry}
+\usepackage{setspace}
+% \geometry{verbose,tmargin=.7in,bmargin=.7in,lmargin=.7in,rmargin=.7in}
+
+% FONTS
+\usepackage{color}
+\usepackage{charter}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts}         % HD AMS fonts
+\usepackage{bm}
+
+\usepackage[english]{babel}
+\usepackage{graphicx}
+
+% MATH SYMBOLS / ENVIRONMENTS
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+
+% DEFINITION
+\input{defs}
+
+\numberwithin{equation}{section}
+
+\title{The second-order geometry of \\ short-and-sparse blind deconvolution}
+\author{Yenson Lau}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+  These notes describe a set of experiments for interrogating the curvature of nonconvex objective functions for short-and-sparse blind deconvolution (SaS-BD) over the course of optimization.
+\end{abstract}
+
+\section{Introduction}
+In SaS-BD, we observe a length-$m$ signal
+\begin{equation*}
+  \mb y \;\;=\;\; \iota\mb a_0 \;\conv\; \mb x_0 \;+\; \mb w,
+\end{equation*}
+the cyclic convolution between a {\em short} kernel $\mb a_0\in\bb S^{p_0-1}$, zero-padded to length $m$, and a {\em sparse} activation map $\mb x_0\in\bb R^m$, with possible additive noise $\mb w$. Our goal is to recover $\mb a_0$ and $\mb x_0$ up to some scaling or cyclic shift, as
+\begin{equation*}
+  \iota\mb a_0 \;\conv\; \mb x_0 \;\;\equiv\;\;
+  \alpha\;s_\ell[\iota\mb a_0] \;\conv\; \alpha^{-1} s_{-\ell}[\mb x_0]
+\end{equation*}
+for any $\alpha\in\set{\bb R\setminus0}$ and $\ell\in\bb Z$. We refer to these as the scaling and shift symmetries respectively.
+
+A natural approach is to begin by formulating SaS-BD as a nonconvex optimization problem,
+\begin{equation} \label{eqn:obj-Psi}
+  \min_{\mb a \in \bb S^{p-1}, \mb x} \;\;\Big[\;
+    \Psi_\lambda(\mb a, \mb x) \;\doteq\; \psi(\mb a, \mb x ; \mb y)
+    \;+\; \lambda\rho(\mb x)
+  \;\Big],
+\end{equation}
+which minimizes a reconstruction error between $\mb y$ and $\mb a\conv\mb x$, plus a sparse penalty $\rho$ on $\mb x$. For example, combining a squared error loss with an $\ell_1$-norm penalty yields the {\em bilinear-lasso} (BL) formulation
+\begin{equation} \tag{BL} \label{eqn:bl}
+  \Psi_\lambda(\mb a,\mb x) \;\;=\;\; \tfrac12\norm{\mb a\conv\mb x-\mb y}_2^2 \;+\; \lambda\norm{\mb x}_1.
+\end{equation}
+A simplified problem, known as the {\em dropped-quadratic} formulation, can be obtained when the circulant matrix of $\mb a$, $\mb C_{\mb a}$, satisfies $\mb C_{\mb a}^T\mb C_{\mb a} \simeq \mb I$ over the course of optimization,
+\begin{align} \tag{DQ} \label{eqn:dq}
+  \Psi_\lambda(\mb a,\mb x) \;\;&=\;\; \tfrac12\norm{\mb x}_2^2 \;-\; \inner{\mb a, \mb x} \;+\; \tfrac12\norm{\mb y}_2^2+\lambda\rho(\mb x), \\
+  \rho(\mb x) \;\;&=\;\;.
+\end{align}
+
+\subsection{Regional landscape geometry}
+When $\mb x_0$ is generic, the objective function becomes regular on $\mb a$ after marginalization on $\mb x$
+\begin{equation} \label{eqn:obj-phi}
+  \eqref{eqn:obj-Psi} \;\equiv\; \min_{\mb a \in \bb S^{p-1}} \;\Big[\;
+    \vphi_\lambda(\mb a) \;\doteq\; \min_{\mb x}\; \Psi_\lambda(\mb a, \mb x)
+  \;\Big].
+\end{equation}
+
+
+
+\section{Experimental outline}
+
+\end{document}
