@@ -23,7 +23,17 @@
 % DEFINITION
 \input{defs}
 
+% Numbering, references, citations
 \numberwithin{equation}{section}
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+\hypersetup{
+    colorlinks=true,%
+    citecolor=blue,%
+    filecolor=blue,%
+    linkcolor=blue,%
+    urlcolor=blue
+}
 
 \title{The second-order geometry of \\ short-and-sparse blind deconvolution}
 \author{Yenson Lau}
@@ -58,22 +68,30 @@ which minimizes a reconstruction error between $\mb y$ and $\mb a\conv\mb x$, pl
 \begin{equation} \tag{BL} \label{eqn:bl}
   \Psi_\lambda(\mb a,\mb x) \;\;=\;\; \tfrac12\norm{\mb a\conv\mb x-\mb y}_2^2 \;+\; \lambda\norm{\mb x}_1.
 \end{equation}
-A simplified problem, known as the {\em dropped-quadratic} formulation, can be obtained when the circulant matrix of $\mb a$, $\mb C_{\mb a}$, satisfies $\mb C_{\mb a}^T\mb C_{\mb a} \simeq \mb I$ over the course of optimization,
+A simplified problem, known as the {\em dropped-quadratic} formulation (DQ), can be obtained when the circulant matrix of $\mb a$, $\mb C_{\mb a}$, satisfies $\mb C_{\mb a}^T\mb C_{\mb a} \simeq \mb I$ over the course of optimization,
 \begin{align} \tag{DQ} \label{eqn:dq}
-  \Psi_\lambda(\mb a,\mb x) \;\;&=\;\; \tfrac12\norm{\mb x}_2^2 \;-\; \inner{\mb a, \mb x} \;+\; \tfrac12\norm{\mb y}_2^2+\lambda\rho(\mb x), \\
-  \rho(\mb x) \;\;&=\;\;.
+  \Psi_\lambda(\mb a,\mb x) \;\;&=\;\; \tfrac12\norm{\mb x}_2^2 \;-\; \inner{\mb a\conv \mb x, \mb y} \;+\; \tfrac12\norm{\mb y}_2^2+\lambda\rho(\mb x), \\
+  \rho(\mb x) \;\;&=\;\; \tsum_i \paren{x_i^2+\delta^2}^{\frac12}.
 \end{align}
 
 \subsection{Regional landscape geometry}
-When $\mb x_0$ is generic, the objective function becomes regular on $\mb a$ after marginalization on $\mb x$
+When $\mb x_0$ is generic, the objective function becomes regular on $\mb a$ after marginalization on $\mb x$,
 \begin{equation} \label{eqn:obj-phi}
   \eqref{eqn:obj-Psi} \;\equiv\; \min_{\mb a \in \bb S^{p-1}} \;\Big[\;
     \vphi_\lambda(\mb a) \;\doteq\; \min_{\mb x}\; \Psi_\lambda(\mb a, \mb x)
   \;\Big].
 \end{equation}
+This phenomenon appears to be {\em largely independent} of the specific formulation used for SaS-BD, but finds a relatively simple expression in the \eqref{eqn:dq} formulation, for which is summarized as follows \cite{kuo2019geometry}:
 
+
+\subsection{Sparsity-coherence tradeoff}
 
 
 \section{Experimental outline}
+
+{\small
+\bibliographystyle{alpha}
+\bibliography{deconv,ncvx,cdl}
+}
 
 \end{document}
