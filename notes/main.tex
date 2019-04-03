@@ -53,9 +53,9 @@ In SaS-BD, we observe a length-$m$ signal
 the cyclic convolution between a {\em short} kernel $\mb a_0\in\bb S^{p_0-1}$, zero-padded to length $m$ by $\iota:\bb R^{m\times p_0}$, and a {\em sparse} activation map $\mb x_0\in\bb R^m$, with possible additive noise $\mb w$. Our goal is to recover $\mb a_0$ and $\mb x_0$ up to some scaling or cyclic shift, as
 \begin{equation*}
   \iota\mb a_0 \;\conv\; \mb x_0 \;\;\equiv\;\;
-  \alpha\;s_\ell[\iota\mb a_0] \;\conv\; \alpha^{-1} s_{-\ell}[\mb x_0]
+  \alpha\;s_l[\iota\mb a_0] \;\conv\; \alpha^{-1} s_{-l}[\mb x_0]
 \end{equation*}
-for any $\alpha\in\set{\bb R\setminus0}$ and $\ell\in\bb Z$. We refer to these as the scaling and shift symmetries respectively.
+for any $\alpha\in\set{\bb R\setminus0}$ and $l\in\bb Z$. We refer to these as the scaling and shift symmetries respectively.
 
 A natural approach is to begin by formulating SaS-BD as a nonconvex optimization problem,
 \begin{equation} \label{eqn:obj-Psi}
@@ -64,31 +64,33 @@ A natural approach is to begin by formulating SaS-BD as a nonconvex optimization
     \;+\; \lambda\rho(\mb x)
   \;\Big],
 \end{equation}
-which minimizes a reconstruction error between $\mb y$ and $\mb a\conv\mb x$, plus a sparse penalty $\rho$ on $\mb x$. For example, combining a squared error loss with an $\ell_1$-norm penalty yields the {\em bilinear-lasso} (BL) formulation
+which minimizes a reconstruction error between $\mb y$ and $\mb a\conv\mb x$, plus a sparse penalty $\rho$ on $\mb x$. For example, the {\em bilinear-lasso} (BL) formulation combines a squared error loss with an $\ell_1$-norm penalty,
 \begin{equation} \tag{BL} \label{eqn:bl}
   \Psi_\lambda(\mb a,\mb x) \;\;=\;\; \tfrac12\norm{\iota\mb a\conv\mb x-\mb y}_2^2 \;+\; \lambda\norm{\mb x}_1.
 \end{equation}
-A simplified problem, known as the {\em dropped-quadratic} formulation (DQ), can be obtained when the circulant matrix of $\mb a$, $\mb C_{\mb a}$, satisfies $\mb C_{\mb a}^T\mb C_{\mb a} \simeq \mb I$ over the course of optimization,
+The {\em dropped-quadratic} formulation (DQ) can be obtained as an approximation to \eqref{eqn:bl} when the circulant matrix $\mb C_{\mb a}$ of $\mb a$, satisfies $\mb C_{\mb a}^T\mb C_{\mb a} \simeq \mb I$ over the course of optimization,
 \begin{align} \tag{DQ} \label{eqn:dq}
   \Psi_\lambda(\mb a,\mb x) \;\;&=\;\; \tfrac12\norm{\mb x}_2^2 \;-\; \inner{\iota\mb a\conv \mb x, \mb y} \;+\; \tfrac12\norm{\mb y}_2^2+\lambda\rho(\mb x), \\
   \rho(\mb x) \;\;&=\;\; \tsum_i \paren{x_i^2+\delta^2}^{\frac12}.
 \end{align}
 
 \subsection{Regional landscape geometry}
-When $\mb x_0$ is generic, its effect on the objective landscape can be marginalized via minimization,
+The generic effect of $\mb x_0$ on the objective landscape can be marginalized via minimization,
 \begin{equation} \label{eqn:obj-phi}
   \eqref{eqn:obj-Psi} \;\equiv\; \min_{\mb a \in \bb S^{p-1}} \;\Big[\;
     \vphi_\lambda(\mb a) \;\doteq\; \min_{\mb x}\; \Psi_\lambda(\mb a, \mb x)
   \;\Big].
 \end{equation}
-As the scale symmetry has already been broken by the sphere, the landscape of $\vphi_\lambda$ is primarily driven by shift symmetries after marginalization. Indeed, when $p>p_0$, several cyclic shifts of $\mb a_0$ can potentially be recovered through the variable $\mb a$, each creating a local minimizer on $\vphi_\lambda$. This in turn influences the behavior of $\vphi_\lambda$ for regions of the sphere in the vicinity of {\em multiple shifts}.
-
-Within such regions, the landscape geometry of $\vphi_\lambda$ become regularized in a way that appears to be {\em largely independent} of the specific formulation used for SaS-BD, but finds a relatively simple expression in the \eqref{eqn:dq} formulation \cite{kuo2019geometry}. Suppose $\mb a \in \mc S_\tau \doteq \set{\mb a: \iota\mb a \in \text{span}\paren{\set{s_\ell[\mb a_0]}_{\ell\in\tau}}}$, for a few shifts $\tau\subset[m],\; \abs{\tau}\geq 2$, i.e.\
+The landscape of $\vphi_\lambda$ is then primarily driven by shift symmetries on the sphere. Indeed, each cyclic shift of $\mb a_0$ recoverable through the variable $\mb a$ creates a local minimizer on $\vphi_\lambda$, which in turn influences the behavior of $\vphi_\lambda$ for regions of the sphere in the vicinity of {\em multiple shifts}.
+This effect appears to be qualitatively {\em independent of the specific formulation} used for SaS-BD, but is simpler to express in the \eqref{eqn:dq} formulation \cite{kuo2019geometry}. Suppose $\mb a$ is near the subspace
 \begin{equation}
-  \iota\mb a \;\;=\;\; \tsum_{\ell\in\tau} \alpha_\ell s_\ell[\iota\mb a_0]
-  \;\in\;\bb S^{p-1}.
+  \mc S_\tau \;\;\doteq\;\; \set{\mb a: \iota\mb a \in \text{span}\paren{\set{s_l[\iota\mb a_0]}_{l\in\tau}}} \;\cap\; \bb S^{p-1},
 \end{equation}
+for a few shifts $\tau\subset\set{0,\dots,p-p_0+1}$. Specifically, this means $\iota\mb a \simeq \tsum_{l\in\tau} \alpha_l s_l[\iota\mb a_0]$ is approximately the superposition of a few shifts from $\mb a_0$, the support of each contained in $[p]$. Furthermore, let $l_1$ and $l_2$ be the shifts corresponding to first and largest magnitude coefficients in this span. Then the following properties obtain:
 
+\paragraph{Strong convexity near single shifts.} If $\abs{\alpha_{l_2}}/\abs{\alpha_{l_1}} \simeq 0$
+\paragraph{Negative curvature at balanced points.} If $\abs{\alpha_{l_2}}/\abs{\alpha_{l_1}} \simeq 1$
+\paragraph{Retraction to subspace.}
 
 \subsection{Sparsity-coherence tradeoff}
 
