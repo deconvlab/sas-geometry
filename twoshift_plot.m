@@ -1,0 +1,1 @@
+[a, win] = tapered_lowpass(100, 0.2, 0.05);
